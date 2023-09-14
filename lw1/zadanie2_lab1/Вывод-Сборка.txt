@@ -1,0 +1,4 @@
+﻿Сборка начата…
+1>------ Сборка начата: проект: zadanie2_lab1, Конфигурация: Debug Any CPU ------
+1>zadanie2_lab1 -> D:\Desktop\zadanie2_lab1\zadanie2_lab1\bin\Debug\net6.0\zadanie2_lab1.dll
+========== Сборка: успешно: 1, сбой: 0, в актуальном состоянии: 0, пропущено: 0==========
