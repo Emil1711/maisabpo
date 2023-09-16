@@ -1,84 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
 
-class SieveOfEratosthenes
+class Program
 {
-    // Метод для вывода N первых простых чисел
-    static void PrintPrimes(int N)
+    static void Main()
     {
-        // Создаем массив для хранения информации о числах
-        bool[] isPrime = new bool[N + 1];
+        Console.Write("Введите количество простых чисел, которые вы хотите вывести: ");
+        int N = Convert.ToInt32(Console.ReadLine());
+        List<int> primes = FirstNPrimes(N);
+        Console.WriteLine(String.Join(", ", primes));
 
-        // Инициализируем все числа как простые
-        for (int i = 2; i <= N; i++)
-        {
-            isPrime[i] = true;
-        }
-
-        // Отмечаем все не простые числа
-        for (int p = 2; p * p <= N; p++)
-        {
-            // Если число еще не помечено как не простое
-            if (isPrime[p] == true)
-            {
-                // Проходимся по всем числам в диапазоне от p*p до N и отмечаем их как не простые
-                for (int i = p * p; i <= N; i += p)
-                {
-                    isPrime[i] = false;
-                }
-            }
-        }
-
-        // Выводим простые числа на экран
-        for (int i = 2; i <= N; i++)
-        {
-            if (isPrime[i] == true)
-            {
-                Console.Write(i + " ");
-            }
-        }
+        Console.Write("Введите число для проверки на простоту: ");
+        int num = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine(IsPrime(num) ? "Простое" : "Составное");
     }
 
-    // Метод для проверки введенного числа на простоту
-    static bool IsPrimeNumber(int number)
+    static List<int> FirstNPrimes(int N)
     {
-        // Если число меньше 2, оно не является простым
-        if (number < 2)
+        List<int> primes = new List<int>();
+        if (N > 0)
+            primes.Add(1);
+
+        int num = 2;
+        while (primes.Count < N)
         {
+            if (IsPrime(num))
+                primes.Add(num);
+            num++;
+        }
+        return primes;
+    }
+
+    static bool IsPrime(int num)
+    {
+        if (num <= 1)
             return false;
-        }
 
-        // Проверяем делители числа до квадратного корня числа
-        for (int i = 2; i <= Math.Sqrt(number); i++)
+        for (int i = 2; i * i <= num; i++)
         {
-            // Если число делится нацело на один из делителей, оно не является простым
-            if (number % i == 0)
-            {
+            if (num % i == 0)
                 return false;
-            }
         }
 
-        // Если ни один делитель не найден, число простое
         return true;
-    }
-
-    static void Main(string[] args)
-    {
-        // Вывод N первых простых чисел
-        int N = 100;
-        Console.WriteLine("Первые " + N + " простых чисел:");
-        PrintPrimes(N);
-        Console.WriteLine();
-
-        // Проверка введенного числа на простоту
-        Console.WriteLine("Введите число для проверки на простоту:");
-        int number = Convert.ToInt32(Console.ReadLine());
-        if (IsPrimeNumber(number))
-        {
-            Console.WriteLine(number + " является простым числом.");
-        }
-        else
-        {
-            Console.WriteLine(number + " не является простым числом.");
-        }
     }
 }
